@@ -72,6 +72,7 @@ function MarkdownArticle({ source }) {
 export default function App() {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
   const [showTop, setShowTop] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const [viewports, setViewports] = useState(() => {
     const initial = {};
     sections.forEach((section) => {
@@ -120,13 +121,57 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 900px)");
+    const handler = (event) => {
+      if (!event.matches) {
+        setNavOpen(false);
+      }
+    };
+    handler(media);
+    if (media.addEventListener) {
+      media.addEventListener("change", handler);
+      return () => media.removeEventListener("change", handler);
+    }
+    media.addListener(handler);
+    return () => media.removeListener(handler);
+  }, []);
+
+  useEffect(() => {
+    if (!navOpen) {
+      return undefined;
+    }
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [navOpen]);
+
   const setViewport = (sectionId, mode) => {
     setViewports((prev) => ({ ...prev, [sectionId]: mode }));
   };
 
   return (
     <div className="page">
-      <aside className="sidebar">
+      <div className="mobile-header">
+        <div className="brand">Gint-M</div>
+        <button
+          type="button"
+          className="mobile-nav-btn"
+          onClick={() => setNavOpen(true)}
+          aria-expanded={navOpen}
+          aria-controls="site-nav"
+        >
+          Разделы
+        </button>
+      </div>
+      <div
+        className={`overlay ${navOpen ? "is-open" : ""}`}
+        onClick={() => setNavOpen(false)}
+        aria-hidden={!navOpen}
+      />
+      <aside className={`sidebar ${navOpen ? "is-open" : ""}`} id="site-nav">
         <div className="brand">Gint-M Codex</div>
         <div className="nav-label">Sections</div>
         <nav className="nav">
@@ -135,6 +180,7 @@ export default function App() {
               key={section.id}
               className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
               href={`#${section.id}`}
+              onClick={() => setNavOpen(false)}
             >
               <span className="nav-title">{section.title}</span>
               <span className="nav-file">{section.file}</span>
