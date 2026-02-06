@@ -1,0 +1,379 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f2ee;
+  --panel: #ffffff;
+  --panel-soft: #f0ebe4;
+  --border: #e3ded6;
+  --text: #1a1a1a;
+  --muted: #6d625a;
+  --accent: #c05a3c;
+  --accent-soft: rgba(192, 90, 60, 0.12);
+  --shadow: 0 10px 30px rgba(20, 14, 10, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow: auto;
+  padding: 24px 20px;
+  background: var(--panel-soft);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.nav-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-item.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav-item:hover {
+  border-color: var(--border);
+  background: #ffffff;
+}
+
+.nav-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.nav-file {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.nav-note {
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.main {
+  padding: clamp(20px, 3vw, 32px) clamp(16px, 3vw, 32px) 48px;
+}
+
+.section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 18px 18px 22px;
+  margin-bottom: 32px;
+  scroll-margin-top: 96px;
+}
+
+.section:target {
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.section-file {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.section-body {
+  width: 100%;
+}
+
+.jsx-body {
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.md-body {
+  padding: 4px 2px 0;
+}
+
+.preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+}
+
+.preview-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.preview-btn {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.preview-btn.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.preview-shell {
+  background: #0b0b0b;
+  border-radius: 12px;
+  border: 1px solid #1b1b1b;
+  padding: clamp(8px, 1.5vw, 16px);
+  overflow-x: auto;
+}
+
+.preview-frame {
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.markdown {
+  max-width: min(980px, 100%);
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #1f1b17;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.markdown h1 {
+  font-size: 30px;
+}
+
+.markdown h2 {
+  font-size: 24px;
+}
+
+.markdown h3 {
+  font-size: 20px;
+}
+
+.markdown p {
+  margin: 12px 0;
+}
+
+.markdown ul,
+.markdown ol {
+  padding-left: 22px;
+  margin: 12px 0;
+}
+
+.markdown li {
+  margin: 6px 0;
+}
+
+.markdown blockquote {
+  margin: 16px 0;
+  padding: 12px 16px;
+  background: #f7f2ed;
+  border-left: 4px solid var(--accent);
+}
+
+.markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: #f3efe9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+.markdown pre {
+  background: #11110f;
+  color: #f4f0ec;
+  padding: 16px;
+  border-radius: 10px;
+  overflow: auto;
+  margin: 16px 0;
+}
+
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+
+.markdown th,
+.markdown td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.to-top {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(192, 90, 60, 0.35);
+  cursor: pointer;
+  z-index: 20;
+}
+
+@media (max-width: 1100px) {
+  .page {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .main {
+    padding: 20px 16px 32px;
+  }
+
+  .section {
+    padding: 14px 14px 18px;
+  }
+
+  .section-head {
+    align-items: flex-start;
+  }
+}
