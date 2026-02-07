@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+﻿import React, { useEffect, useMemo, useState } from "react";
 import MarkdownIt from "markdown-it";
 import AdaptiveGridDemo from "../gint-m-adaptive-grid.jsx";
 import GintMMoodboard from "../gint-m-moodboard.jsx";
@@ -26,6 +26,7 @@ const sections = [
     title: "Adaptive Grid Demo",
     type: "jsx",
     component: AdaptiveGridDemo,
+    showViewport: false,
   },
   {
     id: "moodboard",
@@ -33,6 +34,7 @@ const sections = [
     title: "Design System Moodboard",
     type: "jsx",
     component: GintMMoodboard,
+    showViewport: false,
   },
   {
     id: "competitors-analysis",
@@ -192,7 +194,8 @@ export default function App() {
       <main className="main">
         {sections.map((section) => {
           const Component = section.component;
-          const mode = viewports[section.id] || "fluid";
+          const allowViewport = section.type === "jsx" && section.showViewport !== false;
+          const mode = allowViewport ? viewports[section.id] || "fluid" : "fluid";
           const previewWidth = viewportWidths[mode] ?? "100%";
           return (
             <section key={section.id} id={section.id} className={`section section-${section.type}`}>
@@ -200,7 +203,7 @@ export default function App() {
                 <div className="section-title">{section.title}</div>
                 <div className="section-file">{section.file}</div>
               </div>
-              {section.type === "jsx" && (
+              {allowViewport && (
                 <div className="preview-toolbar">
                   <span className="preview-label">Viewport</span>
                   {viewportOptions.map((opt) => (
@@ -244,3 +247,4 @@ export default function App() {
     </div>
   );
 }
+
