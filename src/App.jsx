@@ -10,12 +10,59 @@ const md = new MarkdownIt({
   typographer: false,
 });
 
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\u0400-\u04ff]+/gi, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const defaultHeadingOpen =
+  md.renderer.rules.heading_open ||
+  ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options));
+
+md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
+  const token = tokens[idx];
+  const level = Number(token.tag.slice(1));
+  if (env?.anchorPrefix && level >= 2 && level <= 4) {
+    const title = tokens[idx + 1]?.content ?? "";
+    const base = slugify(title);
+    env.slugCounts ??= {};
+    const count = env.slugCounts[base] ?? 0;
+    env.slugCounts[base] = count + 1;
+    const slug = count ? `${base}-${count + 1}` : base;
+    token.attrSet("id", `${env.anchorPrefix}-${slug}`);
+  }
+  return defaultHeadingOpen(tokens, idx, options, env, self);
+};
+
 function getFirstHeading(source, fallback) {
   const match = source.match(/^#\s+(.+)$/m);
   if (!match) {
     return fallback;
   }
   return match[1].trim();
+}
+
+function extractHeadings(source, prefix) {
+  const lines = source.split(/\r?\n/);
+  const counts = {};
+  const headings = [];
+  lines.forEach((line) => {
+    const match = line.match(/^(#{2,4})\s+(.+)$/);
+    if (!match) {
+      return;
+    }
+    const level = match[1].length;
+    const text = match[2].trim();
+    const base = slugify(text);
+    const count = counts[base] ?? 0;
+    counts[base] = count + 1;
+    const slug = count ? `${base}-${count + 1}` : base;
+    headings.push({ id: `${prefix}-${slug}`, level, text });
+  });
+  return headings;
 }
 
 const sections = [
@@ -61,18 +108,27 @@ const viewportWidths = {
   mobile: 390,
 };
 
-function MarkdownArticle({ source }) {
-  const html = useMemo(() => md.render(source), [source]);
+function MarkdownArticle({ source, prefix }) {
+  const html = useMemo(() => md.render(source, { anchorPrefix: prefix, slugCounts: {} }), [source, prefix]);
   return <article className="markdown" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 export default function App() {
-  const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
+  const sectionList = useMemo(
+    () =>
+      sections.map((section) =>
+        section.type === "md"
+          ? { ...section, headings: extractHeadings(section.source, section.id) }
+          : section
+      ),
+    []
+  );
+  const [activeId, setActiveId] = useState(sectionList[0]?.id ?? "");
   const [showTop, setShowTop] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [viewports, setViewports] = useState(() => {
     const initial = {};
-    sections.forEach((section) => {
+    sectionList.forEach((section) => {
       if (section.type === "jsx") {
         initial[section.id] = "fluid";
       }
@@ -81,7 +137,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    const targets = sections
+    const targets = sectionList
       .map((section) => document.getElementById(section.id))
       .filter(Boolean);
 
@@ -172,22 +228,36 @@ export default function App() {
         <div className="brand">ГИНТ‑М</div>
         <div className="nav-label">Содержание</div>
         <nav className="nav">
-          {sections.map((section) => (
-            <a
-              key={section.id}
-              className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
-              href={`#${section.id}`}
-              onClick={() => setNavOpen(false)}
-            >
-              <span className="nav-title">{section.title}</span>
-              <span className="nav-file">{section.subtitle ?? section.file}</span>
-            </a>
+          {sectionList.map((section) => (
+            <div key={section.id} className="nav-group">
+              <a
+                className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
+                href={`#${section.id}`}
+                onClick={() => setNavOpen(false)}
+              >
+                <span className="nav-title">{section.title}</span>
+                <span className="nav-file">{section.subtitle ?? section.file}</span>
+              </a>
+              {section.headings?.length ? (
+                <div className="nav-sub">
+                  {section.headings.map((heading) => (
+                    <a
+                      key={heading.id}
+                      className={`nav-subitem level-${heading.level}`}
+                      href={`#${heading.id}`}
+                      onClick={() => setNavOpen(false)}
+                    >
+                      {heading.text}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           ))}
         </nav>
-        <div className="nav-note">Один файл — один раздел.</div>
       </aside>
       <main className="main">
-        {sections.map((section) => {
+        {sectionList.map((section) => {
           const Component = section.component;
           const allowViewport = section.type === "jsx" && section.showViewport !== false;
           const mode = allowViewport ? viewports[section.id] || "fluid" : "fluid";
@@ -215,7 +285,7 @@ export default function App() {
               )}
               <div className={`section-body ${section.type === "jsx" ? "jsx-body" : "md-body"}`}>
                 {section.type === "md" ? (
-                  <MarkdownArticle source={section.source} />
+                  <MarkdownArticle source={section.source} prefix={section.id} />
                 ) : (
                   Component && (
                     <div className="preview-shell" data-viewport={mode}>
