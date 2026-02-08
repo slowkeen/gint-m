@@ -10,6 +10,17 @@ const md = new MarkdownIt({
   typographer: false,
 });
 
+function normalizeQuery(value) {
+  return value.trim().toLowerCase();
+}
+
+function matchesQuery(text, query) {
+  if (!query) {
+    return true;
+  }
+  return (text || "").toLowerCase().includes(query);
+}
+
 function slugify(text) {
   return text
     .toLowerCase()
@@ -161,6 +172,7 @@ export default function App() {
   });
   const [showTop, setShowTop] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [navQuery, setNavQuery] = useState("");
   const [viewports, setViewports] = useState(() => {
     const initial = {};
     sectionList.forEach((section) => {
@@ -170,6 +182,42 @@ export default function App() {
     });
     return initial;
   });
+
+  const navSections = useMemo(() => {
+    const query = normalizeQuery(navQuery);
+    if (!query) {
+      return sectionList;
+    }
+    return sectionList
+      .map((section) => {
+        const sectionMatch =
+          matchesQuery(section.title, query) ||
+          matchesQuery(section.subtitle ?? section.file, query);
+        if (!section.headingGroups?.length) {
+          return sectionMatch ? section : null;
+        }
+        const filteredGroups = section.headingGroups
+          .map((group) => {
+            const groupMatch = matchesQuery(group.text, query);
+            const childMatches = (group.children ?? []).filter((child) =>
+              matchesQuery(child.text, query)
+            );
+            if (groupMatch) {
+              return { ...group };
+            }
+            if (childMatches.length) {
+              return { ...group, children: childMatches };
+            }
+            return null;
+          })
+          .filter(Boolean);
+        if (sectionMatch || filteredGroups.length) {
+          return { ...section, headingGroups: filteredGroups };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }, [sectionList, navQuery]);
 
   useEffect(() => {
     const targets = sectionList
@@ -267,8 +315,28 @@ export default function App() {
       <aside className={`sidebar ${navOpen ? "is-open" : ""}`} id="site-nav">
         <div className="brand">ГИНТ‑М</div>
         <div className="nav-label">Содержание</div>
+        <div className="nav-search">
+          <span className="nav-search-icon" aria-hidden="true" />
+          <input
+            type="search"
+            placeholder="Поиск по разделам"
+            value={navQuery}
+            onChange={(event) => setNavQuery(event.target.value)}
+            aria-label="Поиск по разделам"
+          />
+          {navQuery ? (
+            <button
+              type="button"
+              className="nav-search-clear"
+              onClick={() => setNavQuery("")}
+              aria-label="Очистить поиск"
+            >
+              x
+            </button>
+          ) : null}
+        </div>
         <nav className="nav">
-          {sectionList.map((section) => (
+          {navSections.map((section) => (
             <div key={section.id} className="nav-group">
               <div className="nav-header">
                 <a
@@ -278,15 +346,18 @@ export default function App() {
                     setNavOpen(false);
                   }}
                 >
-                  <span className="nav-title">{section.title}</span>
-                  <span className="nav-file">{section.subtitle ?? section.file}</span>
+                  <span className="nav-icon" data-type={section.type} />
+                  <span className="nav-text">
+                    <span className="nav-title">{section.title}</span>
+                    <span className="nav-file">{section.subtitle ?? section.file}</span>
+                  </span>
                 </a>
               </div>
               {section.headingGroups?.length ? (
                 <div className="nav-sub">
                   {section.headingGroups.map((group) => {
                     const key = `${section.id}:${group.id}`;
-                    const isOpen = !!expandedGroups[key];
+                    const isOpen = navQuery ? true : !!expandedGroups[key];
                     const hasChildren = group.children?.length;
                     return (
                       <div key={group.id} className="nav-subgroup">

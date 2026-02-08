@@ -49,6 +49,7 @@ a {
   padding: 28px 22px;
   background: var(--panel-soft);
   border-right: 1px solid var(--border);
+  backdrop-filter: blur(18px);
 }
 
 .mobile-header {
@@ -117,16 +118,95 @@ a {
   margin-bottom: 12px;
 }
 
+.nav-search {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.nav-search input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px 34px 10px 34px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+.nav-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.nav-search-icon::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+}
+
+.nav-search-icon::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 2px;
+  background: var(--muted);
+  right: -2px;
+  bottom: 0;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+.nav-search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-search-clear:hover {
+  color: var(--text);
+}
+
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .nav-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
 }
 
 .nav-header {
@@ -136,12 +216,16 @@ a {
 }
 
 .nav-item {
-  padding: 12px 14px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
   border: 1px solid transparent;
   border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
-  transition: border-color 0.2s ease, background 0.2s ease;
+  background: transparent;
+  box-shadow: none;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   flex: 1;
 }
 
@@ -152,7 +236,24 @@ a {
 
 .nav-item:hover {
   border-color: var(--border);
-  background: #ffffff;
+  background: #f7f7fb;
+}
+
+.nav-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #b9b9bf;
+  flex-shrink: 0;
+}
+
+.nav-item.is-active .nav-icon {
+  background: var(--accent);
+}
+
+.nav-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-title {
@@ -167,14 +268,14 @@ a {
   display: block;
   font-size: 12px;
   color: var(--muted);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .nav-sub {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding-left: 8px;
+  padding-left: 4px;
 }
 
 .nav-subgroup {
@@ -207,8 +308,12 @@ a {
 .nav-subitem.level-2 {
   font-weight: 600;
   color: var(--text);
-  background: #ffffff;
-  border: 1px solid var(--border);
+  background: #f7f7fb;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
 }
 
 .nav-subitem.level-2:hover {
@@ -220,7 +325,9 @@ a {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: 6px;
+  margin-left: 8px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .nav-subitem.level-3 {
@@ -232,15 +339,19 @@ a {
 }
 
 .nav-toggle {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   border: 1px solid var(--border);
   background: #ffffff;
   display: grid;
   place-items: center;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-subheader .nav-toggle {
+  margin-left: auto;
 }
 
 .nav-toggle::before {
