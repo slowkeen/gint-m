@@ -65,6 +65,25 @@ function extractHeadings(source, prefix) {
   return headings;
 }
 
+function groupHeadings(headings) {
+  const groups = [];
+  let current = null;
+  headings.forEach((heading) => {
+    if (heading.level === 2) {
+      current = { ...heading, children: [] };
+      groups.push(current);
+      return;
+    }
+    if (!current) {
+      current = { ...heading, children: [] };
+      groups.push(current);
+      return;
+    }
+    current.children.push(heading);
+  });
+  return groups;
+}
+
 const sections = [
   {
     id: "adaptive-grid",
@@ -118,23 +137,26 @@ export default function App() {
     () =>
       sections.map((section) =>
         section.type === "md"
-          ? { ...section, headings: extractHeadings(section.source, section.id) }
+          ? (() => {
+              const headings = extractHeadings(section.source, section.id);
+              return {
+                ...section,
+                headings,
+                headingGroups: groupHeadings(headings),
+              };
+            })()
           : section
       ),
     []
   );
   const [activeId, setActiveId] = useState(sectionList[0]?.id ?? "");
-  const [expanded, setExpanded] = useState(() => {
+  const [expandedGroups, setExpandedGroups] = useState(() => {
     const initial = {};
     sectionList.forEach((section) => {
-      if (section.headings?.length) {
-        initial[section.id] = false;
-      }
+      section.headingGroups?.forEach((group, index) => {
+        initial[`${section.id}:${group.id}`] = index === 0;
+      });
     });
-    const firstWithHeadings = sectionList.find((section) => section.headings?.length);
-    if (firstWithHeadings) {
-      initial[firstWithHeadings.id] = true;
-    }
     return initial;
   });
   const [showTop, setShowTop] = useState(false);
@@ -179,16 +201,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const activeSection = sectionList.find((section) => section.id === activeId);
-    if (!activeSection?.headings?.length) {
-      return;
-    }
-    setExpanded((prev) =>
-      prev[activeSection.id] ? prev : { ...prev, [activeSection.id]: true }
-    );
-  }, [activeId, sectionList]);
-
-  useEffect(() => {
     const handleScroll = () => {
       setShowTop(window.scrollY > 400);
     };
@@ -228,8 +240,9 @@ export default function App() {
     setViewports((prev) => ({ ...prev, [sectionId]: mode }));
   };
 
-  const toggleSection = (sectionId) => {
-    setExpanded((prev) => ({ ...prev, [sectionId]: !prev[sectionId] }));
+  const toggleGroup = (sectionId, groupId) => {
+    const key = `${sectionId}:${groupId}`;
+    setExpandedGroups((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -262,37 +275,56 @@ export default function App() {
                   className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
                   href={`#${section.id}`}
                   onClick={() => {
-                    if (section.headings?.length) {
-                      setExpanded((prev) => ({ ...prev, [section.id]: true }));
-                    }
                     setNavOpen(false);
                   }}
                 >
                   <span className="nav-title">{section.title}</span>
                   <span className="nav-file">{section.subtitle ?? section.file}</span>
                 </a>
-                {section.headings?.length ? (
-                  <button
-                    type="button"
-                    className={`nav-toggle ${expanded[section.id] ? "is-open" : ""}`}
-                    aria-expanded={expanded[section.id] ? "true" : "false"}
-                    aria-label="Показать подразделы"
-                    onClick={() => toggleSection(section.id)}
-                  />
-                ) : null}
               </div>
-              {section.headings?.length && expanded[section.id] ? (
+              {section.headingGroups?.length ? (
                 <div className="nav-sub">
-                  {section.headings.map((heading) => (
-                    <a
-                      key={heading.id}
-                      className={`nav-subitem level-${heading.level}`}
-                      href={`#${heading.id}`}
-                      onClick={() => setNavOpen(false)}
-                    >
-                      {heading.text}
-                    </a>
-                  ))}
+                  {section.headingGroups.map((group) => {
+                    const key = `${section.id}:${group.id}`;
+                    const isOpen = !!expandedGroups[key];
+                    const hasChildren = group.children?.length;
+                    return (
+                      <div key={group.id} className="nav-subgroup">
+                        <div className="nav-subheader">
+                          <a
+                            className="nav-subitem level-2"
+                            href={`#${group.id}`}
+                            onClick={() => setNavOpen(false)}
+                          >
+                            {group.text}
+                          </a>
+                          {hasChildren ? (
+                            <button
+                              type="button"
+                              className={`nav-toggle ${isOpen ? "is-open" : ""}`}
+                              aria-expanded={isOpen ? "true" : "false"}
+                              aria-label="Показать подразделы"
+                              onClick={() => toggleGroup(section.id, group.id)}
+                            />
+                          ) : null}
+                        </div>
+                        {hasChildren && isOpen ? (
+                          <div className="nav-sublist">
+                            {group.children.map((child) => (
+                              <a
+                                key={child.id}
+                                className={`nav-subitem level-${child.level}`}
+                                href={`#${child.id}`}
+                                onClick={() => setNavOpen(false)}
+                              >
+                                {child.text}
+                              </a>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
                 </div>
               ) : null}
             </div>

@@ -177,6 +177,18 @@ a {
   padding-left: 8px;
 }
 
+.nav-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-subheader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .nav-subitem {
   display: block;
   padding: 6px 10px;
@@ -190,6 +202,25 @@ a {
 .nav-subitem:hover {
   color: var(--text);
   background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-subitem.level-2 {
+  font-weight: 600;
+  color: var(--text);
+  background: #ffffff;
+  border: 1px solid var(--border);
+}
+
+.nav-subitem.level-2:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.nav-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: 6px;
 }
 
 .nav-subitem.level-3 {
