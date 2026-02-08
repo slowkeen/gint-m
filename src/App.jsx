@@ -124,6 +124,19 @@ export default function App() {
     []
   );
   const [activeId, setActiveId] = useState(sectionList[0]?.id ?? "");
+  const [expanded, setExpanded] = useState(() => {
+    const initial = {};
+    sectionList.forEach((section) => {
+      if (section.headings?.length) {
+        initial[section.id] = false;
+      }
+    });
+    const firstWithHeadings = sectionList.find((section) => section.headings?.length);
+    if (firstWithHeadings) {
+      initial[firstWithHeadings.id] = true;
+    }
+    return initial;
+  });
   const [showTop, setShowTop] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [viewports, setViewports] = useState(() => {
@@ -166,6 +179,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const activeSection = sectionList.find((section) => section.id === activeId);
+    if (!activeSection?.headings?.length) {
+      return;
+    }
+    setExpanded((prev) =>
+      prev[activeSection.id] ? prev : { ...prev, [activeSection.id]: true }
+    );
+  }, [activeId, sectionList]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setShowTop(window.scrollY > 400);
     };
@@ -205,6 +228,10 @@ export default function App() {
     setViewports((prev) => ({ ...prev, [sectionId]: mode }));
   };
 
+  const toggleSection = (sectionId) => {
+    setExpanded((prev) => ({ ...prev, [sectionId]: !prev[sectionId] }));
+  };
+
   return (
     <div className="page">
       <div className="mobile-header">
@@ -230,15 +257,31 @@ export default function App() {
         <nav className="nav">
           {sectionList.map((section) => (
             <div key={section.id} className="nav-group">
-              <a
-                className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
-                href={`#${section.id}`}
-                onClick={() => setNavOpen(false)}
-              >
-                <span className="nav-title">{section.title}</span>
-                <span className="nav-file">{section.subtitle ?? section.file}</span>
-              </a>
-              {section.headings?.length ? (
+              <div className="nav-header">
+                <a
+                  className={`nav-item ${activeId === section.id ? "is-active" : ""}`}
+                  href={`#${section.id}`}
+                  onClick={() => {
+                    if (section.headings?.length) {
+                      setExpanded((prev) => ({ ...prev, [section.id]: true }));
+                    }
+                    setNavOpen(false);
+                  }}
+                >
+                  <span className="nav-title">{section.title}</span>
+                  <span className="nav-file">{section.subtitle ?? section.file}</span>
+                </a>
+                {section.headings?.length ? (
+                  <button
+                    type="button"
+                    className={`nav-toggle ${expanded[section.id] ? "is-open" : ""}`}
+                    aria-expanded={expanded[section.id] ? "true" : "false"}
+                    aria-label="Показать подразделы"
+                    onClick={() => toggleSection(section.id)}
+                  />
+                ) : null}
+              </div>
+              {section.headings?.length && expanded[section.id] ? (
                 <div className="nav-sub">
                   {section.headings.map((heading) => (
                     <a

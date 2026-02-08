@@ -129,6 +129,12 @@ a {
   gap: 6px;
 }
 
+.nav-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .nav-item {
   padding: 12px 14px;
   border: 1px solid transparent;
@@ -136,6 +142,7 @@ a {
   background: #ffffff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
   transition: border-color 0.2s ease, background 0.2s ease;
+  flex: 1;
 }
 
 .nav-item.is-active {
@@ -191,6 +198,32 @@ a {
 
 .nav-subitem.level-4 {
   margin-left: 16px;
+}
+
+.nav-toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-toggle::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+}
+
+.nav-toggle.is-open::before {
+  transform: rotate(45deg);
 }
 
 .main {
