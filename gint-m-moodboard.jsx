@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const palettes = {
   warmIndustrial: {
@@ -12,6 +12,18 @@ const palettes = {
     accent: "#C05A3C",
     accentHover: "#A04830",
     border: "#E5E2DD",
+    noteLabel: "Почему терракот",
+    note: "Тёплый, ассоциируется со строительством и материалами (кирпич, глина), выделяется на фоне нейтральных референсов и не выглядит «корпоративно‑холодным».",
+    rows: [
+      { role: "Тёмный фон", hex: "#1C1C1E", usage: "Первый экран, футер, акцентные секции" },
+      { role: "Светлый фон", hex: "#FAF9F7", usage: "Основной контент" },
+      { role: "Вторичный фон", hex: "#F0EEEA", usage: "Чередование секций, карточки" },
+      { role: "Основной текст", hex: "#1A1A1A", usage: "Заголовки, основной текст" },
+      { role: "Вторичный текст", hex: "#6B7280", usage: "Подписи, мета-информация" },
+      { role: "Акцент", hex: "#C05A3C", usage: "Кнопки, фокус, выделения" },
+      { role: "Акцент при наведении", hex: "#A04830", usage: "Состояние нажатия" },
+      { role: "Линии/разделители", hex: "#E5E2DD", usage: "Бордеры, разделители" },
+    ],
   },
   coolPrecision: {
     name: "Cool Precision",
@@ -24,6 +36,16 @@ const palettes = {
     accent: "#1E3A8A",
     accentHover: "#172E6E",
     border: "#E5E7EB",
+    noteLabel: "Когда выбрать",
+    note: "Если заказчик хочет максимально приблизиться к эстетике Pridex (тёмный + нейтральный) и более «корпоративному» характеру.",
+    rows: [
+      { role: "Тёмный фон", hex: "#0F1117", usage: "Первый экран, футер" },
+      { role: "Светлый фон", hex: "#FFFFFF", usage: "Основной контент" },
+      { role: "Вторичный фон", hex: "#F4F5F7", usage: "Чередование секций" },
+      { role: "Акцент", hex: "#1E3A8A", usage: "Кнопки, активные состояния" },
+      { role: "Акцент при наведении", hex: "#172E6E", usage: "Состояние нажатия" },
+      { role: "Линии/разделители", hex: "#E5E7EB", usage: "Бордеры, разделители" },
+    ],
   },
   confidentNeutral: {
     name: "Confident Neutral",
@@ -36,6 +58,18 @@ const palettes = {
     accent: "#B8953E",
     accentHover: "#9A7A30",
     border: "#E2E0D8",
+    noteLabel: "Когда выбрать",
+    note: "Если хотят максимально премиальное ощущение «архитектурного бюро» и позиционирование в верхнем сегменте.",
+    rows: [
+      { role: "Тёмный фон", hex: "#1A1F1C", usage: "Первый экран, футер" },
+      { role: "Светлый фон", hex: "#FAFAF5", usage: "Основной контент" },
+      { role: "Вторичный фон", hex: "#F0F0E8", usage: "Чередование секций, карточки" },
+      { role: "Основной текст", hex: "#1A1A1A", usage: "Заголовки, основной текст" },
+      { role: "Вторичный текст", hex: "#6B7280", usage: "Подписи, мета-информация" },
+      { role: "Акцент", hex: "#B8953E", usage: "Кнопки, выделения" },
+      { role: "Акцент при наведении", hex: "#9A7A30", usage: "Состояние нажатия" },
+      { role: "Линии/разделители", hex: "#E2E0D8", usage: "Бордеры, разделители" },
+    ],
   },
 };
 
@@ -107,6 +141,30 @@ export default function GintMDesignSystem() {
                 <div style={{ fontSize: 10, color: "#555", fontFamily: "monospace" }}>{c.hex}</div>
               </div>
             ))}
+          </div>
+          <div style={{ marginTop: 24, padding: 20, borderRadius: 12, border: "1px solid #222", background: "#0f0f0f" }}>
+            <div style={{ fontSize: 12, color: "#888", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 10 }}>
+              Цветовая палитра — описание
+            </div>
+            <div style={{ fontSize: 14, color: "#bbb", lineHeight: 1.6, marginBottom: 16 }}>
+              Существующие фирменные цвета не вписываются в современную минималистичную эстетику. Палитра строится с нуля с ориентиром на
+              сдержанный, премиальный визуал.
+            </div>
+            <div style={{ fontSize: 13, color: "#ddd", marginBottom: 10 }}>
+              <strong style={{ color: p.accent }}>{p.noteLabel}:</strong> {p.note}
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.7fr 1.4fr", gap: 10, fontSize: 12, color: "#999" }}>
+              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Роль</div>
+              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>HEX</div>
+              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Применение</div>
+              {p.rows.map((row, idx) => (
+                <React.Fragment key={idx}>
+                  <div style={{ color: "#ddd", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.role}</div>
+                  <div style={{ fontFamily: "monospace", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.hex}</div>
+                  <div style={{ color: "#bbb", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.usage}</div>
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -225,31 +283,118 @@ export default function GintMDesignSystem() {
         {activeSection === "typography" && (
           <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #222" }}>
             <div style={{ background: p.light, padding: "48px 60px" }}>
-              <div style={{ marginBottom: 48 }}>
+              <div style={{ marginBottom: 40 }}>
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 16 }}>Сравнение шрифтов (одинаковый текст)</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 24 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
                     <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Сейчас — PT Sans</div>
                     <div style={{ fontFamily: "'PT Sans', 'Segoe UI', sans-serif" }}>
-                      <div style={{ fontSize: 32, fontWeight: 700, color: p.text, letterSpacing: "-0.01em", marginBottom: 10 }}>
-                        Гинт-М — генеральный подрядчик полного цикла
+                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "0.01em", marginBottom: 8 }}>
+                        ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
+                      </div>
+                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>
+                        Проектирование · Строительство · Эксплуатация
                       </div>
                       <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7 }}>
-                        Съешь же ещё этих мягких французских булок, да выпей чаю. Мы проектируем, строим и оснащаем офисы, медицинские и общественные пространства с 2001 года.
+                        Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
                       </div>
                     </div>
                   </div>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 24 }}>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
                     <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Предлагаем — Outfit + Source Sans 3</div>
                     <div style={{ fontFamily: "'Outfit', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
-                      <div style={{ fontSize: 32, fontWeight: 700, color: p.text, letterSpacing: "-0.02em", marginBottom: 10 }}>
-                        Гинт-М — генеральный подрядчик полного цикла
+                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.02em", marginBottom: 8 }}>
+                        ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
+                      </div>
+                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.28em", textTransform: "uppercase", marginBottom: 10 }}>
+                        Проектирование · Строительство · Эксплуатация
                       </div>
                       <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Source Sans 3', 'Segoe UI', sans-serif" }}>
-                        Съешь же ещё этих мягких французских булок, да выпей чаю. Мы проектируем, строим и оснащаем офисы, медицинские и общественные пространства с 2001 года.
+                        Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
                       </div>
                     </div>
                   </div>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
+                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Премиум — TT Hoves Pro + Cera Pro</div>
+                    <div style={{ fontFamily: "'TT Hoves Pro', 'TT Norms Pro', 'Gotham Pro', 'Outfit', 'Segoe UI', sans-serif" }}>
+                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.01em", marginBottom: 8 }}>
+                        ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
+                      </div>
+                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.26em", textTransform: "uppercase", marginBottom: 10 }}>
+                        Проектирование · Строительство · Эксплуатация
+                      </div>
+                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Cera Pro', 'TT Commons Pro', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
+                        Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 28 }}>
+                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Сравнение: что стоит сейчас и что предлагаем</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, fontSize: 13 }}>
+                  <div style={{ fontWeight: 600 }}>Роль</div>
+                  <div style={{ fontWeight: 600 }}>Сейчас (сайт)</div>
+                  <div style={{ fontWeight: 600 }}>Предлагаем</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Заголовки</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>PT Sans (стандартный гротеск)</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Outfit (основной), Manrope / Unbounded (альтернатива)</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Основной текст</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>PT Sans</div>
+                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Source Sans 3 (основной), Golos Text / Nunito Sans (альтернатива)</div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 28, fontSize: 14, color: p.text, lineHeight: 1.6 }}>
+                <strong>Почему меняем:</strong> текущий шрифт воспринимается как базовый и «без характера», а предложенная пара даёт более современный и уверенный образ без потери читабельности.
+              </div>
+
+              <div style={{ marginBottom: 28 }}>
+                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Предлагаемая пара шрифтов</div>
+                <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
+                  <strong>Заголовки: Outfit</strong> — геометрический, современный, но с мягкостью; отлично работает в крупных кеглях; бесплатный (Google Fonts), кириллица поддерживается.
+                </div>
+                <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6, marginTop: 8 }}>
+                  <strong>Текст: Source Sans 3</strong> — профессиональный, очень читабельный, хорошо работает в 16–18px; кириллица поддерживается.
+                </div>
+                <div style={{ fontSize: 13, color: p.textMuted, marginTop: 10 }}>
+                  Почему не Inter/Roboto: слишком распространены, не создают запоминающегося визуального впечатления.
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 28 }}>
+                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Премиальные варианты (лицензия)</div>
+                <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
+                  TT Norms Pro, TT Hoves Pro, Cera Pro, Gotham Pro, Proxima Nova, TT Commons Pro.
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 32 }}>
+                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Иерархия размеров</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 0.8fr", gap: 10, fontSize: 13 }}>
+                  <div style={{ fontWeight: 600 }}>Элемент</div>
+                  <div style={{ fontWeight: 600 }}>Большие экраны</div>
+                  <div style={{ fontWeight: 600 }}>Мобильные</div>
+                  <div style={{ fontWeight: 600 }}>Вес</div>
+                  {[
+                    ["Заголовок первого экрана (H1)", "72px / 80px", "40px / 48px", "700"],
+                    ["Секция H2", "48px", "32px", "600"],
+                    ["Подзаголовок H3", "28px", "22px", "600"],
+                    ["Основной текст", "18px", "16px", "400"],
+                    ["Подпись / мета", "14px", "13px", "400"],
+                    ["Кнопки", "16px", "14px", "600"],
+                  ].map((row, idx) => (
+                    <React.Fragment key={idx}>
+                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[0]}</div>
+                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[1]}</div>
+                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[2]}</div>
+                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[3]}</div>
+                    </React.Fragment>
+                  ))}
+                </div>
+                <div style={{ fontSize: 12, color: p.textMuted, marginTop: 10 }}>
+                  Межстрочный интервал: 1.2 для заголовков, 1.6 для текста. Межбуквенный интервал: -0.02em для крупных заголовков, 0 для основного текста.
                 </div>
               </div>
 
