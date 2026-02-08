@@ -142,30 +142,6 @@ export default function GintMDesignSystem() {
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 24, padding: 20, borderRadius: 12, border: "1px solid #222", background: "#0f0f0f" }}>
-            <div style={{ fontSize: 12, color: "#888", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 10 }}>
-              Цветовая палитра — описание
-            </div>
-            <div style={{ fontSize: 14, color: "#bbb", lineHeight: 1.6, marginBottom: 16 }}>
-              Существующие фирменные цвета не вписываются в современную минималистичную эстетику. Палитра строится с нуля с ориентиром на
-              сдержанный, премиальный визуал.
-            </div>
-            <div style={{ fontSize: 13, color: "#ddd", marginBottom: 10 }}>
-              <strong style={{ color: p.accent }}>{p.noteLabel}:</strong> {p.note}
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.7fr 1.4fr", gap: 10, fontSize: 12, color: "#999" }}>
-              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Роль</div>
-              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>HEX</div>
-              <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>Применение</div>
-              {p.rows.map((row, idx) => (
-                <React.Fragment key={idx}>
-                  <div style={{ color: "#ddd", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.role}</div>
-                  <div style={{ fontFamily: "monospace", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.hex}</div>
-                  <div style={{ color: "#bbb", padding: "6px 0", borderTop: "1px solid #1f1f1f" }}>{row.usage}</div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Section Tabs */}

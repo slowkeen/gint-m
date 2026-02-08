@@ -3,7 +3,6 @@ import MarkdownIt from "markdown-it";
 import AdaptiveGridDemo from "../gint-m-adaptive-grid.jsx";
 import GintMMoodboard from "../gint-m-moodboard.jsx";
 import competitorsRaw from "../competitors_analysis.md?raw";
-import designSystemRaw from "../gint-m-design-system.md?raw";
 
 const md = new MarkdownIt({
   html: false,
@@ -45,14 +44,6 @@ const sections = [
     subtitle: "Рекомендации по сайту",
     type: "md",
     source: competitorsRaw,
-  },
-  {
-    id: "design-system",
-    file: "gint-m-design-system.md",
-    title: getFirstHeading(designSystemRaw, "Design System"),
-    subtitle: "Стратегия и структура",
-    type: "md",
-    source: designSystemRaw,
   },
 ];
 
