@@ -315,15 +315,15 @@ export default function GintMDesignSystem() {
                     </div>
                   </div>
                   <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
-                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Премиум — TT Hoves Pro + Cera Pro</div>
-                    <div style={{ fontFamily: "'TT Hoves Pro', 'TT Norms Pro', 'Gotham Pro', 'Outfit', 'Segoe UI', sans-serif" }}>
+                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Премиум (аналог) — Manrope + Golos Text</div>
+                    <div style={{ fontFamily: "'Manrope', 'Outfit', 'Segoe UI', sans-serif" }}>
                       <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.01em", marginBottom: 8 }}>
                         ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
                       </div>
                       <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.26em", textTransform: "uppercase", marginBottom: 10 }}>
                         Проектирование · Строительство · Эксплуатация
                       </div>
-                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Cera Pro', 'TT Commons Pro', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
+                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Golos Text', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
                         Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
                       </div>
                     </div>
@@ -367,34 +367,6 @@ export default function GintMDesignSystem() {
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Премиальные варианты (лицензия)</div>
                 <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
                   TT Norms Pro, TT Hoves Pro, Cera Pro, Gotham Pro, Proxima Nova, TT Commons Pro.
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 32 }}>
-                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Иерархия размеров</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 0.8fr", gap: 10, fontSize: 13 }}>
-                  <div style={{ fontWeight: 600 }}>Элемент</div>
-                  <div style={{ fontWeight: 600 }}>Большие экраны</div>
-                  <div style={{ fontWeight: 600 }}>Мобильные</div>
-                  <div style={{ fontWeight: 600 }}>Вес</div>
-                  {[
-                    ["Заголовок первого экрана (H1)", "72px / 80px", "40px / 48px", "700"],
-                    ["Секция H2", "48px", "32px", "600"],
-                    ["Подзаголовок H3", "28px", "22px", "600"],
-                    ["Основной текст", "18px", "16px", "400"],
-                    ["Подпись / мета", "14px", "13px", "400"],
-                    ["Кнопки", "16px", "14px", "600"],
-                  ].map((row, idx) => (
-                    <React.Fragment key={idx}>
-                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[0]}</div>
-                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[1]}</div>
-                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[2]}</div>
-                      <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>{row[3]}</div>
-                    </React.Fragment>
-                  ))}
-                </div>
-                <div style={{ fontSize: 12, color: p.textMuted, marginTop: 10 }}>
-                  Межстрочный интервал: 1.2 для заголовков, 1.6 для текста. Межбуквенный интервал: -0.02em для крупных заголовков, 0 для основного текста.
                 </div>
               </div>
 
