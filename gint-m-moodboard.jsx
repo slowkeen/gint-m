@@ -262,9 +262,9 @@ export default function GintMDesignSystem() {
               <div style={{ marginBottom: 40 }}>
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 16 }}>Сравнение шрифтов (одинаковый текст)</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22, fontFamily: "'PT Sans', 'Segoe UI', sans-serif" }}>
                     <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Сейчас — PT Sans</div>
-                    <div style={{ fontFamily: "'PT Sans', 'Segoe UI', sans-serif" }}>
+                    <div>
                       <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "0.01em", marginBottom: 8 }}>
                         ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
                       </div>
@@ -276,9 +276,9 @@ export default function GintMDesignSystem() {
                       </div>
                     </div>
                   </div>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22, fontFamily: "'Manrope', 'Golos Text', 'Segoe UI', sans-serif" }}>
                     <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Предлагаем — Manrope + Golos Text</div>
-                    <div style={{ fontFamily: "'Manrope', 'Golos Text', 'Segoe UI', sans-serif" }}>
+                    <div>
                       <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.02em", marginBottom: 8 }}>
                         ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
                       </div>
