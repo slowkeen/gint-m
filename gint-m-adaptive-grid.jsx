@@ -409,38 +409,6 @@ export default function AdaptiveGridDemo() {
           )}
         </div>
 
-        {/* Technical specs */}
-        <div style={{ marginTop: 48, padding: 32, background: "#111", borderRadius: 12, border: "1px solid #222" }}>
-          <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 20 }}>Технические спецификации адаптивной сетки</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
-            <div>
-              <div style={{ fontSize: 12, color: palette.accent, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Breakpoints</div>
-              <div style={{ fontSize: 13, color: "#aaa", lineHeight: 2 }}>
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>≥1200px</code> — 3 колонки, gap 20px<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>768–1199px</code> — 2 колонки, gap 16px<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>≤767px</code> — 1 колонка, gap 12px
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, color: palette.accent, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>CSS-свойства для фото</div>
-              <div style={{ fontSize: 13, color: "#aaa", lineHeight: 2 }}>
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>object-fit: cover</code> — заполнение контейнера<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>object-position: center</code> — точка фокуса<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>aspect-ratio: 4/3</code> — для uniform grid<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>loading="lazy"</code> — ленивая загрузка
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, color: palette.accent, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>CMS-поля для каждого фото</div>
-              <div style={{ fontSize: 13, color: "#aaa", lineHeight: 2 }}>
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>image</code> — файл изображения<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>focal_point</code> — x,y точка фокуса (%)<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>is_featured</code> — флаг «крупная карточка»<br />
-                <code style={{ background: "#1a1a1a", padding: "2px 6px", borderRadius: 3, color: "#ddd" }}>alt_text</code> — описание для SEO
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
