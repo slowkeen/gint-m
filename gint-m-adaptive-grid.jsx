@@ -86,7 +86,7 @@ export default function AdaptiveGridDemo() {
   ];
 
   return (
-    <div style={{ fontFamily: "'Source Sans 3', 'Segoe UI', sans-serif", background: "#0A0A0A", color: "#fff", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "'Manrope', 'Golos Text', 'Segoe UI', sans-serif", background: "#0A0A0A", color: "#fff", minHeight: "100vh" }}>
       {/* Header */}
       <div style={{ padding: "24px 40px", borderBottom: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>

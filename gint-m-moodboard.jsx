@@ -79,7 +79,7 @@ export default function GintMDesignSystem() {
   const p = palettes[activePalette];
 
   return (
-    <div style={{ fontFamily: "'Source Sans 3', 'Segoe UI', sans-serif", background: "#0A0A0A", color: "#fff", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "'Manrope', 'Golos Text', 'Segoe UI', sans-serif", background: "#0A0A0A", color: "#fff", minHeight: "100vh" }}>
       {/* Header */}
       <div style={{ padding: "32px 40px", borderBottom: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
@@ -301,48 +301,19 @@ export default function GintMDesignSystem() {
                     </div>
                   </div>
                   <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
-                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Предлагаем — Outfit + Source Sans 3</div>
-                    <div style={{ fontFamily: "'Outfit', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
+                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Предлагаем — Manrope + Golos Text</div>
+                    <div style={{ fontFamily: "'Manrope', 'Golos Text', 'Segoe UI', sans-serif" }}>
                       <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.02em", marginBottom: 8 }}>
-                        ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
-                      </div>
-                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.28em", textTransform: "uppercase", marginBottom: 10 }}>
-                        Проектирование · Строительство · Эксплуатация
-                      </div>
-                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Source Sans 3', 'Segoe UI', sans-serif" }}>
-                        Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
-                      </div>
-                    </div>
-                  </div>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
-                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Премиум (аналог) — Manrope + Golos Text</div>
-                    <div style={{ fontFamily: "'Manrope', 'Outfit', 'Segoe UI', sans-serif" }}>
-                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "-0.01em", marginBottom: 8 }}>
                         ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
                       </div>
                       <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.26em", textTransform: "uppercase", marginBottom: 10 }}>
                         Проектирование · Строительство · Эксплуатация
                       </div>
-                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Golos Text', 'Source Sans 3', 'Segoe UI', sans-serif" }}>
+                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Golos Text', 'Segoe UI', sans-serif" }}>
                         Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div style={{ marginBottom: 28 }}>
-                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Сравнение: что стоит сейчас и что предлагаем</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, fontSize: 13 }}>
-                  <div style={{ fontWeight: 600 }}>Роль</div>
-                  <div style={{ fontWeight: 600 }}>Сейчас (сайт)</div>
-                  <div style={{ fontWeight: 600 }}>Предлагаем</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Заголовки</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>PT Sans (стандартный гротеск)</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Outfit (основной), Manrope / Unbounded (альтернатива)</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Основной текст</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>PT Sans</div>
-                  <div style={{ borderTop: `1px solid ${p.border}`, paddingTop: 8 }}>Source Sans 3 (основной), Golos Text / Nunito Sans (альтернатива)</div>
                 </div>
               </div>
 
@@ -353,10 +324,10 @@ export default function GintMDesignSystem() {
               <div style={{ marginBottom: 28 }}>
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Предлагаемая пара шрифтов</div>
                 <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
-                  <strong>Заголовки: Outfit</strong> — геометрический, современный, но с мягкостью; отлично работает в крупных кеглях; бесплатный (Google Fonts), кириллица поддерживается.
+                  <strong>Заголовки: Manrope</strong> — современный, геометричный, хорошо держит строгие заголовки.
                 </div>
                 <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6, marginTop: 8 }}>
-                  <strong>Текст: Source Sans 3</strong> — профессиональный, очень читабельный, хорошо работает в 16–18px; кириллица поддерживается.
+                  <strong>Текст: Golos Text</strong> — очень читабельный, «деловой» характер, отлично работает в длинных абзацах.
                 </div>
                 <div style={{ fontSize: 13, color: p.textMuted, marginTop: 10 }}>
                   Почему не Inter/Roboto: слишком распространены, не создают запоминающегося визуального впечатления.

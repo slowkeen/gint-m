@@ -23,7 +23,8 @@ const sections = [
   {
     id: "adaptive-grid",
     file: "gint-m-adaptive-grid.jsx",
-    title: "Adaptive Grid Demo",
+    title: "Адаптивная сетка проектов",
+    subtitle: "Варианты сетки и примеры",
     type: "jsx",
     component: AdaptiveGridDemo,
     showViewport: false,
@@ -31,7 +32,8 @@ const sections = [
   {
     id: "moodboard",
     file: "gint-m-moodboard.jsx",
-    title: "Design System Moodboard",
+    title: "Мудборд дизайн‑системы",
+    subtitle: "Палитра и типографика",
     type: "jsx",
     component: GintMMoodboard,
     showViewport: false,
@@ -40,6 +42,7 @@ const sections = [
     id: "competitors-analysis",
     file: "competitors_analysis.md",
     title: getFirstHeading(competitorsRaw, "Competitors Analysis"),
+    subtitle: "Рекомендации по сайту",
     type: "md",
     source: competitorsRaw,
   },
@@ -47,6 +50,7 @@ const sections = [
     id: "design-system",
     file: "gint-m-design-system.md",
     title: getFirstHeading(designSystemRaw, "Design System"),
+    subtitle: "Стратегия и структура",
     type: "md",
     source: designSystemRaw,
   },
@@ -157,7 +161,7 @@ export default function App() {
   return (
     <div className="page">
       <div className="mobile-header">
-        <div className="brand">Gint-M</div>
+        <div className="brand">ГИНТ‑М</div>
         <button
           type="button"
           className="mobile-nav-btn"
@@ -165,7 +169,7 @@ export default function App() {
           aria-expanded={navOpen}
           aria-controls="site-nav"
         >
-          Разделы
+          Содержание
         </button>
       </div>
       <div
@@ -174,8 +178,8 @@ export default function App() {
         aria-hidden={!navOpen}
       />
       <aside className={`sidebar ${navOpen ? "is-open" : ""}`} id="site-nav">
-        <div className="brand">Gint-M Codex</div>
-        <div className="nav-label">Sections</div>
+        <div className="brand">ГИНТ‑М</div>
+        <div className="nav-label">Содержание</div>
         <nav className="nav">
           {sections.map((section) => (
             <a
@@ -185,11 +189,11 @@ export default function App() {
               onClick={() => setNavOpen(false)}
             >
               <span className="nav-title">{section.title}</span>
-              <span className="nav-file">{section.file}</span>
+              <span className="nav-file">{section.subtitle ?? section.file}</span>
             </a>
           ))}
         </nav>
-        <div className="nav-note">One file = one section.</div>
+        <div className="nav-note">Один файл — один раздел.</div>
       </aside>
       <main className="main">
         {sections.map((section) => {
