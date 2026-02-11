@@ -3,6 +3,7 @@ import MarkdownIt from "markdown-it";
 import AdaptiveGridDemo from "../gint-m-adaptive-grid.jsx";
 import GintMMoodboard from "../gint-m-moodboard.jsx";
 import competitorsRaw from "../competitors_analysis.md?raw";
+import meetingUpdatesRaw from "../meeting_updates_2026-02-11.md?raw";
 
 const md = new MarkdownIt({
   html: false,
@@ -96,6 +97,14 @@ function groupHeadings(headings) {
 }
 
 const sections = [
+  {
+    id: "meeting-updates",
+    file: "meeting_updates_2026-02-11.md",
+    title: getFirstHeading(meetingUpdatesRaw, "Актуализация по созвону"),
+    subtitle: "Решения и правки от 11.02.2026",
+    type: "md",
+    source: meetingUpdatesRaw,
+  },
   {
     id: "adaptive-grid",
     file: "gint-m-adaptive-grid.jsx",
