@@ -262,16 +262,16 @@ export default function GintMDesignSystem() {
               <div style={{ marginBottom: 40 }}>
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 16 }}>Сравнение шрифтов (одинаковый текст)</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22, fontFamily: "'PT Sans', 'Segoe UI', sans-serif" }}>
-                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Сейчас — PT Sans</div>
+                  <div style={{ border: `1px solid ${p.border}`, borderRadius: 10, padding: 22 }}>
+                    <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Сейчас — Futura / Roboto</div>
                     <div>
-                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "0.01em", marginBottom: 8 }}>
+                      <div style={{ fontSize: 30, fontWeight: 700, color: p.text, letterSpacing: "0.01em", marginBottom: 8, fontFamily: "'Futura', 'Trebuchet MS', 'Segoe UI', sans-serif" }}>
                         ГЕНПОДРЯДЧИК ПОЛНОГО ЦИКЛА 2001–2026
                       </div>
-                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10 }}>
+                      <div style={{ fontSize: 14, color: p.textMuted, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 10, fontFamily: "'Futura', 'Trebuchet MS', 'Segoe UI', sans-serif" }}>
                         Проектирование · Строительство · Эксплуатация
                       </div>
-                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7 }}>
+                      <div style={{ fontSize: 16, color: p.text, lineHeight: 1.7, fontFamily: "'Roboto', 'Segoe UI', sans-serif" }}>
                         Съешь же ещё этих мягких французских булок, да выпей чаю. 0123456789 · ₽ € $ %
                       </div>
                     </div>
@@ -298,6 +298,16 @@ export default function GintMDesignSystem() {
               </div>
 
               <div style={{ marginBottom: 28 }}>
+                <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Текущая типографика (факт)</div>
+                <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
+                  <strong>Заголовки: Futura</strong>
+                </div>
+                <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6, marginTop: 8 }}>
+                  <strong>Основной текст: Roboto</strong>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 28 }}>
                 <div style={{ fontSize: 12, color: p.textMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>Предлагаемая пара шрифтов</div>
                 <div style={{ fontSize: 14, color: p.text, lineHeight: 1.6 }}>
                   <strong>Заголовки: Manrope</strong> — современный, геометричный, хорошо держит строгие заголовки.
@@ -306,7 +316,7 @@ export default function GintMDesignSystem() {
                   <strong>Текст: Golos Text</strong> — очень читабельный, «деловой» характер, отлично работает в длинных абзацах.
                 </div>
                 <div style={{ fontSize: 13, color: p.textMuted, marginTop: 10 }}>
-                  Почему не Inter/Roboto: слишком распространены, не создают запоминающегося визуального впечатления.
+                  Почему не оставляем текущую пару без изменений: Futura в длинном тексте уступает по читабельности, а Roboto в заголовках не даёт нужного акцента.
                 </div>
               </div>
 

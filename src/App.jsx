@@ -108,8 +108,8 @@ const sections = [
   {
     id: "adaptive-grid",
     file: "gint-m-adaptive-grid.jsx",
-    title: "Адаптивная сетка проектов",
-    subtitle: "Варианты сетки и примеры",
+    title: "Адаптивная сетка фотографий внутри проекта",
+    subtitle: "Корректное отображение разноформатных фото",
     type: "jsx",
     component: AdaptiveGridDemo,
     showViewport: false,

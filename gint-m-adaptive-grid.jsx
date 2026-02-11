@@ -12,15 +12,15 @@ const palette = {
 
 // Simulated project data with mixed aspect ratios
 const projects = [
-  { id: 1, title: "Штаб-квартира Microsoft", meta: "Офисы · 2023 · 12 000 м²", ratio: "landscape", color: "#2C3E50" },
-  { id: 2, title: "Клиника Кит Мед", meta: "Медицинские · 2024 · 3 200 м²", ratio: "portrait", color: "#4A3728" },
-  { id: 3, title: "Офис SAP", meta: "Офисы · 2022 · 8 500 м²", ratio: "landscape", color: "#2E4057" },
-  { id: 4, title: "World Class Fitness", meta: "Спортивные · 2023 · 5 100 м²", ratio: "square", color: "#3D5A3E" },
-  { id: 5, title: "Офис Kaspersky", meta: "Офисы · 2024 · 6 800 м²", ratio: "landscape", color: "#4A3040" },
-  { id: 6, title: "Торговый центр", meta: "Ритейл · 2023 · 15 000 м²", ratio: "portrait", color: "#2B4A5A" },
-  { id: 7, title: "BMW Showroom", meta: "Ритейл · 2024 · 2 400 м²", ratio: "landscape", color: "#3A3A3A" },
-  { id: 8, title: "Жилой комплекс", meta: "Жилая · 2022 · 22 000 м²", ratio: "square", color: "#4A4030" },
-  { id: 9, title: "Офис EY", meta: "Офисы · 2023 · 4 600 м²", ratio: "portrait", color: "#2E3748" },
+  { id: 1, title: "Штаб-квартира Microsoft", year: "2023", client: "Microsoft", ratio: "landscape", color: "#2C3E50" },
+  { id: 2, title: "Клиника Кит Мед", year: "2024", client: "Кит Мед", ratio: "portrait", color: "#4A3728" },
+  { id: 3, title: "Офис SAP", year: "2022", client: "SAP", ratio: "landscape", color: "#2E4057" },
+  { id: 4, title: "World Class Fitness", year: "2023", client: "World Class", ratio: "square", color: "#3D5A3E" },
+  { id: 5, title: "Офис Kaspersky", year: "2024", client: "Kaspersky", ratio: "landscape", color: "#4A3040" },
+  { id: 6, title: "Торговый центр", year: "2023", client: "Retail Client", ratio: "portrait", color: "#2B4A5A" },
+  { id: 7, title: "BMW Showroom", year: "2024", client: "BMW", ratio: "landscape", color: "#3A3A3A" },
+  { id: 8, title: "Жилой комплекс", year: "2022", client: "Residential Client", ratio: "square", color: "#4A4030" },
+  { id: 9, title: "Офис EY", year: "2023", client: "EY", ratio: "portrait", color: "#2E3748" },
 ];
 
 // Photo placeholder with aspect ratio indicator
@@ -50,6 +50,22 @@ function ProjectCard({ project, style = {} }) {
       <div style={{ width: "100%", height: "100%", transition: "transform 0.4s ease", transform: hovered ? "scale(1.03)" : "scale(1)" }}>
         <PhotoPlaceholder ratio={project.ratio} color={project.color} />
       </div>
+      {project.client && (
+        <div style={{
+          position: "absolute",
+          top: 12,
+          left: 12,
+          background: "#ffffffdd",
+          color: palette.text,
+          borderRadius: 999,
+          padding: "5px 10px",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.02em",
+        }}>
+          {project.client}
+        </div>
+      )}
       {/* Hover overlay */}
       <div style={{
         position: "absolute", inset: 0,
@@ -60,7 +76,7 @@ function ProjectCard({ project, style = {} }) {
         <div style={{ fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4, transition: "transform 0.3s", transform: hovered ? "translateY(-4px)" : "none" }}>
           {project.title}
         </div>
-        <div style={{ fontSize: 12, color: "#ffffff99" }}>{project.meta}</div>
+        {project.year && <div style={{ fontSize: 12, color: "#ffffff99" }}>{project.year}</div>}
         {hovered && (
           <div style={{ fontSize: 13, fontWeight: 600, color: palette.accent, marginTop: 12, opacity: hovered ? 1 : 0, transition: "opacity 0.2s" }}>
             Смотреть проект →
@@ -72,7 +88,7 @@ function ProjectCard({ project, style = {} }) {
 }
 
 export default function AdaptiveGridDemo() {
-  const [activeGrid, setActiveGrid] = useState("masonry");
+  const [activeGrid, setActiveGrid] = useState("gallery");
   const [activeBreakpoint, setActiveBreakpoint] = useState("desktop");
 
   const breakpointWidths = { desktop: "100%", tablet: 768, mobile: 375 };
@@ -90,8 +106,8 @@ export default function AdaptiveGridDemo() {
       {/* Header */}
       <div style={{ padding: "24px 40px", borderBottom: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <div style={{ fontSize: 12, color: "#666", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2 }}>Гинт-М · Адаптивная сетка проектов</div>
-          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Решение проблемы разноформатных фото</div>
+          <div style={{ fontSize: 12, color: "#666", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2 }}>Гинт-М · Адаптивная сетка фотографий внутри проекта</div>
+          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Корректное отображение разноформатных фото</div>
         </div>
         <div style={{ display: "flex", gap: 4, background: "#111", borderRadius: 6, padding: 3 }}>
           {["desktop", "tablet", "mobile"].map(bp => (
@@ -135,8 +151,8 @@ export default function AdaptiveGridDemo() {
               <div style={{ background: "#1a0000", border: "1px solid #441111", borderRadius: 8, padding: 20, marginBottom: 24 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: "#ff6b6b", marginBottom: 8 }}>⚠️ Текущая проблема на сайте Гинт-М</div>
                 <div style={{ fontSize: 13, color: "#cc8888", lineHeight: 1.6 }}>
-                  Фото проектов приходят в разных пропорциях (горизонтальные, вертикальные, квадратные), но сетка фиксированная.
-                  В результате: вертикальные фото обрезаются сверху/снизу, горизонтальные теряют композицию, нет адаптивности на мобильных.
+                  Внутри страницы проекта фото приходят в разных пропорциях (горизонтальные, вертикальные, квадратные), но галерея фиксированная.
+                  В результате: вертикальные фото обрезаются сверху/снизу, горизонтальные теряют композицию, на мобильных страдает читабельность.
                 </div>
               </div>
 
@@ -158,7 +174,7 @@ export default function AdaptiveGridDemo() {
                     )}
                     <div style={{ position: "absolute", bottom: 8, left: 8, right: 8 }}>
                       <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>{p.title}</div>
-                      <div style={{ fontSize: 10, color: "#ffffff80" }}>{p.meta}</div>
+                      {p.year && <div style={{ fontSize: 10, color: "#ffffff80" }}>{p.year}</div>}
                     </div>
                   </div>
                 ))}
@@ -169,8 +185,7 @@ export default function AdaptiveGridDemo() {
                   <strong style={{ color: "#ff6b6b" }}>Проблемы:</strong><br />
                   • Фиксированная высота 220px — вертикальные фото теряют 40–60% содержимого<br />
                   • Нет object-fit: cover / contain — фото растягиваются непропорционально<br />
-                  • Одинаковая сетка на всех экранах — на мобильных карточки слишком мелкие<br />
-                  • Нет hover-состояний — невозможно понять, что карточка кликабельна
+                  • Одинаковая сетка на всех экранах — на мобильных карточки слишком мелкие
                 </div>
               </div>
             </div>
@@ -317,7 +332,7 @@ export default function AdaptiveGridDemo() {
                 marginTop: activeBreakpoint === "mobile" ? 12 : 20,
               }}>
                 <ProjectCard project={projects[8]} style={{ aspectRatio: activeBreakpoint === "mobile" ? "4/3" : "3/4" }} />
-                <ProjectCard project={{ ...projects[4], title: "Офис KPMG", meta: "Офисы · 2024 · 9 200 м²" }} style={{ aspectRatio: activeBreakpoint === "mobile" ? "4/3" : "16/9" }} />
+                <ProjectCard project={{ ...projects[4], title: "Офис KPMG", year: "2024", client: "KPMG" }} style={{ aspectRatio: activeBreakpoint === "mobile" ? "4/3" : "16/9" }} />
               </div>
 
               <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
